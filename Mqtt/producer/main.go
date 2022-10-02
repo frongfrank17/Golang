@@ -2,27 +2,24 @@ package main
 
 import (
 	"fmt"
+	"producer/route"
 
-	"github.com/Shopify/sarama"
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-	fmt.Println("SERVICE PRODUCER")
-	server := []string{"localhost:9092"}
-	topic := "my-queue-1"
-	producer, err := sarama.NewSyncProducer(server, nil)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("RUNNING PRODUCER")
-	defer producer.Close()
-	msg := sarama.ProducerMessage{
-		Topic: topic,
-		Value: sarama.StringEncoder("hello ssdfsdfsss"),
-	}
-	partition, offset, err := producer.SendMessage(&msg)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("Partition=%v , offset=%v", partition, offset)
+	fmt.Println("Start Service Producer")
+	app := fiber.New()
+
+	// producer, err := sarama.NewSyncProducer(viper.GetStringSlice("kafka.servers"), nil)
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// defer producer.Close()
+	// eventProducer := service.NewEventProducer(producer)
+	// bankService := service.NewBankService(eventProducer)
+	// ctrl := controller.NewAccountController(bankService)
+	route.Public_route(app)
+	app.Listen(":3002")
 }

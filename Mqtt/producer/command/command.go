@@ -1,0 +1,21 @@
+package command
+
+type OpenAccountCommand struct {
+	AccountName    string
+	AccountType    int
+	OpeningBalance float64
+}
+
+type DepositFundCommand struct {
+	ID     string
+	Amount float64
+}
+
+type WithdrawFundCommand struct {
+	ID     string
+	Amount float64
+}
+
+type CloseAccountCommand struct {
+	ID string
+}
